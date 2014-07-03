@@ -1,5 +1,7 @@
 <div id='container'>
   <!-- Your html here -->
-  <div ng-controller='LinksController' ng-onload='getLinks()'>
+  <div ng-controller='LinksController'>
+    <button ng-click='changeView("/shorten")'>Shorten</button>
+    <h1 ng-repeat='link in data.links'>{{link}}<h1>
   </div>
 </div>
