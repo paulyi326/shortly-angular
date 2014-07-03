@@ -33,6 +33,22 @@ angular.module('shortly', [
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttatchTokens');
 })
+.filter('orderObjectBy', function() {
+  return function(linksArray, attr) {
+    var array = [];
+    for(var link in linksArray) {
+      array.push(linksArray[link].visits);
+    }
+
+    array.sort(function(a, b){
+      a = parseInt(a[attr]);
+      b = parseInt(b[attr]);
+      return a - b;
+    });
+    return array;
+  };
+})
+
 .factory('AttatchTokens', function ($window) {
   // this is an $httpInterceptor
   // its job is to stop all out going request

@@ -7,11 +7,16 @@ angular.module('shortly.links', [])
     Links.getLinks()
     .then(function(links){
       $scope.data.links = links;
+      for (var i = 0; i < $scope.data.links.length; i++) {
+        var link = $scope.data.links[i];
+        link.isVisible = true;
+      }
     });
   };
   $scope.changeView = function(route){
     $location.path(route);
   };
   $scope.getLinks();
+
 
 });

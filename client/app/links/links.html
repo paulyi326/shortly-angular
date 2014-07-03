@@ -2,6 +2,9 @@
   <!-- Your html here -->
   <div ng-controller='LinksController'>
     <button ng-click='changeView("/shorten")'>Shorten</button>
-    <h1 ng-repeat='link in data.links'>{{link}}<h1>
+    <input type='text' placeholder='ballz' ng-model='filterText' >
+    <ul>
+      <li ng-repeat="link in data.links | orderBy:'visits' | filter:filterText ">{{link.url}}</li>
+    </ul>
   </div>
 </div>

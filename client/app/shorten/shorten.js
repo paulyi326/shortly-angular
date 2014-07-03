@@ -4,10 +4,18 @@ angular.module('shortly.shorten', [])
   // Your code here
   $scope.link ={};
   $scope.addLink = function(){
-    console.log($scope.link);
-    Links.addLink($scope.link)
-    .success(function() {
-      $scope.loading = false;
-    });
+    if (!isFormValid($scope.link.url)) {
+      console.log('sorry');
+    } else {
+      Links.addLink($scope.link)
+      .success(function() {
+        $scope.loading = false;
+      });
+    }
   };
+
+  function isFormValid(url) {
+    return url.match(/^https?:\/\/.*\..*/) !== null;
+  }
 });
+

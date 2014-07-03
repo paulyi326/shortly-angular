@@ -7,24 +7,47 @@ angular.module('shortly.auth', [])
   $scope.user = {};
 
   $scope.signin = function () {
-    Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.shortly', token);
-        $location.path('/links');
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    if (!signupIsValid($scope.user.username, $scope.user.password)) {
+      console.log('you are a newb');
+    } else {
+      Auth.signin($scope.user)
+        .then(function (token) {
+          $window.localStorage.setItem('com.shortly', token);
+          $location.path('/links');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
   };
 
   $scope.signup = function () {
-    Auth.signup($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.shortly', token);
-        $location.path('/links');
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    if (!signupIsValid($scope.user.username, $scope.user.password)) {
+      console.log('you are a newb');
+    } else {
+      console.log('username: ', $scope.user.username);
+      Auth.signup($scope.user)
+        .then(function (token) {
+          $window.localStorage.setItem('com.shortly', token);
+          $location.path('/links');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  };
+
+  var signupIsValid = function(username, password) {
+    console.log(username);
+    console.log(password);
+    if (username === undefined) {
+      return false;
+    } else if (username === '') {
+      return false;
+    } else if (password === undefined) {
+      return false;
+    } else {
+      return true;
+    }
   };
 });
